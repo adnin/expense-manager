@@ -20,7 +20,7 @@ use App\Http\Controllers\UserController;
 */
 
 // Public routes
-Route::post('/register', [AuthController::class, 'register']);
+// for testing only Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/categories', [CategoryController::class, 'index']);
 
