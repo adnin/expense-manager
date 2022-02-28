@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Models\Role;
 
-class CategoryController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        $categories->load('expenses');
+        $roles = Role::all();
         $response = [
-            'categories' => $categories
+            'roles' => $roles
         ];
 
         return response($response, 200);
@@ -32,11 +31,11 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'description' => 'required'
+            'name' => 'required | unique:roles',
+            'guard_name' => 'required',
         ]);
 
-        return Category::create($request->all());
+        return Role::create($request->all());
     }
 
     /**
@@ -48,9 +47,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = Category::find($id);
-        $category->update($request->all());
-        return $category;
+        $role = Role::find($id);
+        if ($role->name === 'admin') {
+            return response()->json([
+                'responseMessage' => 'You do not have the required authorization.',
+                'responseStatus'  => 403,
+            ]);
+        }
+        $role->update($request->all());
+        return $role;
     }
 
     /**
@@ -61,6 +66,14 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        return Category::destroy($id);
+        $role = Role::find($id);
+        if ($role->name === 'admin') {
+            return response()->json([
+                'responseMessage' => 'You do not have the required authorization.',
+                'responseStatus'  => 403,
+            ]);
+        }
+
+        return Role::destroy($id);
     }
 }

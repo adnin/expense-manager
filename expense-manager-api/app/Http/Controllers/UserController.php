@@ -15,8 +15,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::all();
-
+        $data = User::with('roles')->get();
         $response = [
             'users' => $data
         ];

@@ -24,7 +24,7 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('password')
         ]);
 
-        $role = Role::find(1);
+        $role = Role::find($user->id);
 
         $permissions = Permission::pluck('id', 'id')->all();
 
