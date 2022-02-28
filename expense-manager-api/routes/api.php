@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExpenseController;
 
 /*
@@ -15,12 +16,16 @@ use App\Http\Controllers\ExpenseController;
 |
 */
 
+// Public routes
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+// Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user', function(Request $request) {
         return auth()->user();
     });
-
-    // expenses routes to controller
+    // Expenses routes to controller
     Route::get('/expenses', [ExpenseController::class, 'index']);
     Route::post('/expenses', [ExpenseController::class, 'store']);
 });
