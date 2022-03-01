@@ -13,6 +13,6 @@ describe('Nav Page', () => {
         expect(wrapper.text()).toMatch(msg);
     });
     it('should include a logout button', () => {
-        expect(wrapper.find('#logout').exists()).toBe(true);
+        expect(wrapper.find('[data-logout]').exists()).toBe(true);
     });
 });
