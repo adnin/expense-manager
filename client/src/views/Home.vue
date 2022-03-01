@@ -9,7 +9,11 @@
                 <span class="py-2 px-3 text-white">Adnin Onofre (admin)</span>
                 <ul class="list-outside mt-5">
                     <li>
-                        <a href="#" class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700"> Dashboard </a>
+                        <router-link
+                            class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700"
+                            to="home/dashboard"
+                            >Dashboard</router-link
+                        >
                     </li>
                     <li>
                         <a href="#" class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700">
@@ -17,14 +21,18 @@
                         </a>
                         <ul class="ml-4 list-outside">
                             <li>
-                                <a href="#" class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700">
-                                    Role
-                                </a>
+                                <router-link
+                                    class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700"
+                                    to="home/role"
+                                    >Role</router-link
+                                >
                             </li>
                             <li>
-                                <a href="#" class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700">
-                                    Users
-                                </a>
+                                <router-link
+                                    class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700"
+                                    to="home/users"
+                                    >Users</router-link
+                                >
                             </li>
                         </ul>
                     </li>
@@ -34,14 +42,18 @@
                         </a>
                         <ul class="ml-4 list-outside">
                             <li>
-                                <a href="#" class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700">
-                                    Expense Categories
-                                </a>
+                                <router-link
+                                    class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700"
+                                    to="home/categories"
+                                    >Expense Categories</router-link
+                                >
                             </li>
                             <li>
-                                <a href="#" class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700">
-                                    Expenses
-                                </a>
+                                <router-link
+                                    class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700"
+                                    to="home/expenses"
+                                    >Expense</router-link
+                                >
                             </li>
                         </ul>
                     </li>
@@ -51,7 +63,7 @@
             <div class="flex-1 flex overflow-hidden">
                 <!-- Scrollable container -->
                 <div class="flex-1 overflow-x-scroll">
-                    <!-- Your content -->
+                    <router-view></router-view>
                 </div>
             </div>
         </div>

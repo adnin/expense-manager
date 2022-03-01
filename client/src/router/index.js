@@ -8,7 +8,33 @@ const routes = [
         path: '/',
         name: 'home',
         component: Home,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true },
+        children: [
+            {
+                path: '',
+                redirect: 'dashboard' // default child path
+            },
+            {
+                path: 'dashboard',
+                component: () => import('../views/Dashboard.vue')
+            },
+            {
+                path: 'role',
+                component: () => import('../views/Role.vue')
+            },
+            {
+                path: 'users',
+                component: () => import('../views/Users.vue')
+            },
+            {
+                path: 'categories',
+                component: () => import('../views/Categories.vue')
+            },
+            {
+                path: 'expenses',
+                component: () => import('../views/Expenses.vue')
+            }
+        ]
     },
     {
         path: '/login',
