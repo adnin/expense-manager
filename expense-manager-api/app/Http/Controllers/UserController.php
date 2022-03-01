@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Expense;
 
-class ExpenseController extends Controller
+class UserController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $expenses = Expense::all();
+        $data = User::with('roles')->get();
         $response = [
-            'expenses' => $expenses
+            'users' => $data
         ];
 
         return response($response, 200);
@@ -31,12 +32,12 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'amount' => 'required',
-            'entry_date' => 'required',
-            'category_id' => 'required',
+            'name' => 'required|string',
+            'email' => 'required|string|unique:users,email',
+            'password' => 'required|string|confirmed'
         ]);
 
-        return Expense::create($request->all());
+        return User::create($request->all());
     }
 
     /**
@@ -48,9 +49,11 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $expense = Expense::find($id);
-        $expense->update($request->all());
-        return $expense;
+        $user = User::find($id);
+        $user->getRoleNames();
+        return $user;
+        $user->update($request->all());
+        return $user;
     }
 
     /**
@@ -61,6 +64,9 @@ class ExpenseController extends Controller
      */
     public function destroy($id)
     {
-        return Expense::destroy($id);
+        $user = User::find($id);
+        $user->getRoleNames();
+        return $user;
+        return User::destroy($id);
     }
 }

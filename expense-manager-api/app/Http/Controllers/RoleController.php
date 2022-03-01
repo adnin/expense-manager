@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Expense;
+use App\Models\Role;
 
-class ExpenseController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::all();
+        $roles = Role::all();
         $response = [
-            'expenses' => $expenses
+            'roles' => $roles
         ];
 
         return response($response, 200);
@@ -31,12 +31,11 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'amount' => 'required',
-            'entry_date' => 'required',
-            'category_id' => 'required',
+            'name' => 'required | unique:roles',
+            'guard_name' => 'required',
         ]);
 
-        return Expense::create($request->all());
+        return Role::create($request->all());
     }
 
     /**
@@ -48,9 +47,15 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $expense = Expense::find($id);
-        $expense->update($request->all());
-        return $expense;
+        $role = Role::find($id);
+        if ($role->name === 'admin') {
+            return response()->json([
+                'responseMessage' => 'You do not have the required authorization.',
+                'responseStatus'  => 403,
+            ]);
+        }
+        $role->update($request->all());
+        return $role;
     }
 
     /**
@@ -61,6 +66,14 @@ class ExpenseController extends Controller
      */
     public function destroy($id)
     {
-        return Expense::destroy($id);
+        $role = Role::find($id);
+        if ($role->name === 'admin') {
+            return response()->json([
+                'responseMessage' => 'You do not have the required authorization.',
+                'responseStatus'  => 403,
+            ]);
+        }
+
+        return Role::destroy($id);
     }
 }

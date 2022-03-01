@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Expense;
+use App\Models\Category;
 
-class ExpenseController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,10 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::all();
+        $categories = Category::all();
+        $categories->load('expenses');
         $response = [
-            'expenses' => $expenses
+            'categories' => $categories
         ];
 
         return response($response, 200);
@@ -31,12 +32,11 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'amount' => 'required',
-            'entry_date' => 'required',
-            'category_id' => 'required',
+            'name' => 'required',
+            'description' => 'required'
         ]);
 
-        return Expense::create($request->all());
+        return Category::create($request->all());
     }
 
     /**
@@ -48,9 +48,9 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $expense = Expense::find($id);
-        $expense->update($request->all());
-        return $expense;
+        $category = Category::find($id);
+        $category->update($request->all());
+        return $category;
     }
 
     /**
@@ -61,6 +61,6 @@ class ExpenseController extends Controller
      */
     public function destroy($id)
     {
-        return Expense::destroy($id);
+        return Category::destroy($id);
     }
 }
