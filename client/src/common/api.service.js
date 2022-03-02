@@ -63,3 +63,21 @@ const ApiService = {
 };
 
 export default ApiService;
+
+export const RolesService = {
+    get() {
+        return ApiService.get('roles');
+    },
+
+    post(payload) {
+        return ApiService.post(`roles`, payload);
+    },
+
+    update(id, payload) {
+        return ApiService.update(`roles/${id}`, payload);
+    },
+
+    destroy(id, commentId) {
+        return ApiService.delete(`roles/${id}`);
+    }
+};

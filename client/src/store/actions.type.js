@@ -4,6 +4,7 @@ export const USER_DESTROY = 'destroyUser';
 export const USER_UPDATE = 'updateUser';
 export const ROLE_CREATE = 'createRole';
 export const ROLE_DESTROY = 'destroyRole';
+export const ROLE_UPDATE = 'updateRole';
 export const CATEGORY_UPDATE = 'updateCategory';
 export const CATEGORY_CREATE = 'createCategory';
 export const CATEGORY_DESTROY = 'destroyCategory';

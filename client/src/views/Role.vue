@@ -4,7 +4,7 @@
             <div class="flex justify-end my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 align-middle inline-block sm:px-6 lg:px-8">
                     <div class="shadow overflow-hidden">
-                        <Table :tHead="tHead" :data="people" />
+                        <Table :tHead="tHead" :data="roles" />
                     </div>
                 </div>
             </div>
@@ -17,24 +17,19 @@
                 </button>
             </div>
         </div>
-
         <Modal title="Add Role" :data="data" v-show="isModalVisible" @close="closeModal" />
     </div>
 </template>
 
 <script>
+import store from '@/store';
+import { mapGetters } from 'vuex';
+import { FETCH_ROLES } from '@/store/actions.type';
+
 import Table from '@/components/Table';
 import Modal from '@/components/Modal';
 
 const tHead = ['Display Name', 'Description', 'Created at'];
-const people = [
-    {
-        role: 'Admin',
-        description: 'Regional Paradigm Technician',
-        date: '2022-02-03'
-    }
-];
-
 const data = [
     { id: 1, name: 'name', label: 'Display Name', type: 'text', value: '' },
     { id: 2, name: 'description', label: 'Description', type: 'text', value: '' }
@@ -44,13 +39,20 @@ export default {
     setup() {
         return {
             tHead,
-            people,
             data
         };
     },
     components: {
         Table,
         Modal
+    },
+    beforeRouteEnter(to, from, next) {
+        Promise.all([store.dispatch(FETCH_ROLES)]).then(() => {
+            next();
+        });
+    },
+    computed: {
+        ...mapGetters(['roles'])
     },
     data() {
         return {
