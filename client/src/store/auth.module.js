@@ -43,7 +43,6 @@ const actions = {
         context.commit(PURGE_AUTH);
     },
     [CHECK_AUTH](context) {
-        console.log(JwtService.getToken());
         if (JwtService.getToken()) {
             return ApiService.get('user')
                 .then(({ data }) => {
