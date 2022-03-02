@@ -1,8 +1,9 @@
 import { RolesService, JwtService, ApiService } from '../common/api.service';
 import { FETCH_ROLES, ROLE_CREATE, ROLE_UPDATE, ROLE_DESTROY } from './actions.type';
-import { RESET_STATE, SET_ROLES } from './mutations.type';
+import { RESET_STATE, SET_ROLES, SET_ERROR } from './mutations.type';
 
 const initialState = {
+    errors: null,
     roles: []
 };
 
@@ -15,21 +16,38 @@ export const actions = {
         return data;
     },
     async [ROLE_CREATE](context, payload) {
-        await RolesService.post(payload, payload);
-        context.dispatch(FETCH_ROLES);
+        await RolesService.post(payload)
+            .then((e) => {
+                context.dispatch(FETCH_ROLES);
+                console.log({ e });
+            })
+            .catch((e) => console.log({ e }));
     },
     async [ROLE_DESTROY](context, payload) {
-        await RolesService.destroy(payload, payload);
+        await RolesService.destroy(payload);
         context.dispatch(FETCH_ROLES);
     },
-    async [ROLE_UPDATE]({ state }) {
-        await RolesService.put(payload, payload);
-        context.dispatch(FETCH_ROLES);
+    async [ROLE_UPDATE](context, payload) {
+        return new Promise((resolve, reject) => {
+            RolesService.update(payload)
+                .then(() => context.dispatch(FETCH_ROLES))
+                .catch((e) => {
+                    // if (!response.data.errors) {
+                    //     context.commit(SET_ERROR, [response.data.message]);
+                    //     return reject(response);
+                    // }
+                    return reject(e.response.data.message);
+                    context.commit(SET_ERROR, e.response.data.message);
+                });
+        });
     }
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
 export const mutations = {
+    [SET_ERROR](state, error) {
+        state.errors = error;
+    },
     [SET_ROLES](state, roles) {
         state.roles = roles;
     },

@@ -47,8 +47,8 @@ const ApiService = {
         return axiosClient.post(`${resource}`, params);
     },
 
-    update(resource, slug, params) {
-        return axiosClient.put(`${resource}/${slug}`, params);
+    update(resource, params) {
+        return axiosClient.put(`${resource}`, params);
     },
 
     put(resource, params) {
@@ -73,11 +73,11 @@ export const RolesService = {
         return ApiService.post(`roles`, payload);
     },
 
-    update(id, payload) {
-        return ApiService.update(`roles/${id}`, payload);
+    update(payload) {
+        return ApiService.update(`roles/${payload.id}`, payload);
     },
 
-    destroy(id, commentId) {
+    destroy(id) {
         return ApiService.delete(`roles/${id}`);
     }
 };

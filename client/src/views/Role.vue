@@ -24,7 +24,7 @@
 <script>
 import store from '@/store';
 import { mapGetters } from 'vuex';
-import { FETCH_ROLES } from '@/store/actions.type';
+import { FETCH_ROLES, ROLE_UPDATE } from '@/store/actions.type';
 
 import Table from '@/components/Table';
 import Modal from '@/components/Modal';
@@ -58,7 +58,8 @@ export default {
     },
     data() {
         return {
-            isModalVisible: false
+            isModalVisible: false,
+            selectedId: 0
         };
     },
     methods: {
@@ -67,6 +68,7 @@ export default {
             this.modalType = 'add';
             this.data[0].value = '';
             this.data[1].value = '';
+            this.selectedId = 0;
             this.isModalVisible = true;
         },
         closeModal() {
@@ -77,21 +79,29 @@ export default {
             this.modalType = 'update';
             this.data[0].value = value.name;
             this.data[1].value = value.description;
+            this.selectedId = value.id;
             this.isModalVisible = true;
         },
         update(value) {
-            console.log({ value });
-            this.isModalVisible = false;
-            let loader = this.$loading.show({
-                // Optional parameters
-                canCancel: true,
-                onCancel: this.onCancel
-            });
-            // simulate AJAX
-            setTimeout(() => {
-                loader.hide();
-                this.$toast.success(`Hey! I'm here`);
-            }, 5000);
+            if (this.selectedId) {
+                const role = {
+                    id: this.selectedId,
+                    name: value[0].value,
+                    description: value[1].value
+                };
+                this.isModalVisible = false;
+                let loader = this.$loading.show();
+                this.$store
+                    .dispatch(ROLE_UPDATE, role)
+                    .then(() => {
+                        loader.hide();
+                        this.$toast.success(`Role has been Updated`, { position: 'top-right' });
+                    })
+                    .catch((error) => {
+                        loader.hide();
+                        this.$toast.error(error, { position: 'top-right' });
+                    });
+            }
         }
     }
 };
