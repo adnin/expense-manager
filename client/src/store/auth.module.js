@@ -23,7 +23,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             ApiService.post('/login', credentials)
                 .then(({ data }) => {
-                    context.commit(SET_AUTH, data.user);
+                    context.commit(SET_AUTH, data);
                     resolve(data);
                 })
                 .catch(({ response }) => {
@@ -43,10 +43,11 @@ const actions = {
         context.commit(PURGE_AUTH);
     },
     [CHECK_AUTH](context) {
+        console.log(JwtService.getToken());
         if (JwtService.getToken()) {
             return ApiService.get('user')
                 .then(({ data }) => {
-                    context.commit(SET_AUTH, data.user);
+                    context.commit(SET_AUTH, data);
                 })
                 .catch(({ response }) => {
                     context.commit(SET_ERROR, response.data.errors);
@@ -65,7 +66,9 @@ const mutations = {
         state.isAuthenticated = true;
         state.user = user;
         state.errors = {};
-        JwtService.saveToken(state.user.token);
+        if (state.user.token) {
+            JwtService.saveToken(state.user.token);
+        }
     },
     [PURGE_AUTH](state) {
         state.isAuthenticated = false;

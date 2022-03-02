@@ -6,11 +6,31 @@ export const axiosClient = axios.create({
     baseURL: API_URL
 });
 
-const ApiService = {
-    setHeader() {
-        axiosClient.defaults.headers['Authorization'] = `Bearer ${JwtService.getToken()}`;
-    },
+axiosClient.interceptors.request.use(
+    (config) => {
+        const token = JwtService.getToken();
 
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+axiosClient.interceptors.response.use(undefined, function (error) {
+    if (error) {
+        const httpError = JSON.parse(JSON.stringify(error));
+        if (httpError.status === 401) {
+            window.location.replace('/login');
+        }
+        return Promise.reject(error);
+    }
+});
+
+const ApiService = {
     query(resource, params) {
         return axiosClient.get(resource, params).catch((error) => {
             throw new Error(`[RWV] ApiService ${error}`);

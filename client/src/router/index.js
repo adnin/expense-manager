@@ -16,22 +16,27 @@ const routes = [
             },
             {
                 path: 'dashboard',
+                name: 'Dashboard',
                 component: () => import('../views/Dashboard.vue')
             },
             {
                 path: 'role',
+                name: 'User Management > Roles',
                 component: () => import('../views/Role.vue')
             },
             {
                 path: 'users',
+                name: 'User Management > Users',
                 component: () => import('../views/Users.vue')
             },
             {
                 path: 'categories',
+                name: 'Expense Management > Expense Categories',
                 component: () => import('../views/Categories.vue')
             },
             {
                 path: 'expenses',
+                name: 'Expense Management > Expenses',
                 component: () => import('../views/Expenses.vue')
             }
         ]

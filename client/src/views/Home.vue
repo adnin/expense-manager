@@ -63,6 +63,7 @@
             <div class="flex-1 flex overflow-hidden">
                 <!-- Scrollable container -->
                 <div class="flex-1 overflow-x-scroll">
+                    <TitleBar :path="path" :name="name" />
                     <router-view></router-view>
                 </div>
             </div>
@@ -71,12 +72,33 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import { CHECK_AUTH, LOGOUT } from '@/store/actions.type';
+
 import Nav from '@/components/Nav';
+import TitleBar from '@/components/TitleBar';
+
 export default {
     name: 'Home',
     components: {
-        Nav
+        Nav,
+        TitleBar
+    },
+    beforeCreate() {
+        this.$store
+            .dispatch(CHECK_AUTH)
+            .then()
+            .catch(() => {
+                this.$store.dispatch(LOGOUT);
+                this.$router.push({ name: 'Login' });
+            });
+    },
+    computed: {
+        name() {
+            return this.$route.name;
+        },
+        path() {
+            return this.$route.path;
+        }
     }
 };
 </script>
