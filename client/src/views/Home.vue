@@ -14,7 +14,7 @@
                         >
                     </li>
                     <li>
-                        <a href="#" class="block py-1 px-3 rounded transition duration-200 text-white"> User Management </a>
+                        <span class="block cursor-pointer py-1 px-3 rounded transition duration-200 text-gray-300"> User Management </span>
                         <ul class="ml-4 list-outside">
                             <li>
                                 <router-link class="block py-1 px-3 rounded transition duration-200 text-white" to="home/role"
@@ -29,7 +29,9 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#" class="block py-1 px-3 rounded transition duration-200 text-white 0"> Expense Management </a>
+                        <span class="block cursor-pointer py-1 px-3 rounded transition duration-200 text-gray-300">
+                            Expense Management
+                        </span>
                         <ul class="ml-4 list-outside">
                             <li>
                                 <router-link class="block py-1 px-3 rounded transition duration-200 text-white" to="home/categories"

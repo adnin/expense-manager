@@ -48,6 +48,8 @@ class AuthController extends Controller
             ], 401);
         }
 
+        $user->roles;
+
         $token = $user->createToken('auth_token')->plainTextToken;
 
         $response = [

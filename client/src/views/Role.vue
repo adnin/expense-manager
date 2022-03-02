@@ -17,14 +17,24 @@
                 </button>
             </div>
         </div>
-        <Modal :type="modalType" :title="modalTitle" :data="data" v-show="isModalVisible" @close="closeModal" @update="update" />
+        <Modal
+            :type="modalType"
+            :title="modalTitle"
+            :data="data"
+            :error="error"
+            v-show="isModalVisible"
+            @close="closeModal"
+            @add="add"
+            @update="update"
+            @remove="remove"
+        />
     </div>
 </template>
 
 <script>
 import store from '@/store';
 import { mapGetters } from 'vuex';
-import { FETCH_ROLES, ROLE_UPDATE } from '@/store/actions.type';
+import { FETCH_ROLES, ROLE_UPDATE, ROLE_CREATE, ROLE_DESTROY } from '@/store/actions.type';
 
 import Table from '@/components/Table';
 import Modal from '@/components/Modal';
@@ -59,7 +69,8 @@ export default {
     data() {
         return {
             isModalVisible: false,
-            selectedId: 0
+            selectedId: 0,
+            error: null
         };
     },
     methods: {
@@ -72,6 +83,7 @@ export default {
             this.isModalVisible = true;
         },
         closeModal() {
+            this.error = null;
             this.isModalVisible = false;
         },
         selected(value) {
@@ -81,6 +93,30 @@ export default {
             this.data[1].value = value.description;
             this.selectedId = value.id;
             this.isModalVisible = true;
+        },
+        add(value) {
+            console.log(value);
+            if (!this.data[0].value || !this.data[1].value) {
+                return (this.error = 'Please fill out the form completely');
+            }
+            this.error = null;
+            const role = {
+                name: value[0].value,
+                guard_name: 'web',
+                description: value[1].value
+            };
+            this.isModalVisible = false;
+            let loader = this.$loading.show();
+            this.$store
+                .dispatch(ROLE_CREATE, role)
+                .then(() => {
+                    loader.hide();
+                    this.$toast.success(`Role has been Added`, { position: 'top-right' });
+                })
+                .catch((error) => {
+                    loader.hide();
+                    this.$toast.error(error, { position: 'top-right' });
+                });
         },
         update(value) {
             if (this.selectedId) {
@@ -96,6 +132,22 @@ export default {
                     .then(() => {
                         loader.hide();
                         this.$toast.success(`Role has been Updated`, { position: 'top-right' });
+                    })
+                    .catch((error) => {
+                        loader.hide();
+                        this.$toast.error(error, { position: 'top-right' });
+                    });
+            }
+        },
+        remove() {
+            if (this.selectedId) {
+                this.isModalVisible = false;
+                let loader = this.$loading.show();
+                this.$store
+                    .dispatch(ROLE_DESTROY, this.selectedId)
+                    .then(() => {
+                        loader.hide();
+                        this.$toast.success(`Role has been Deleted`, { position: 'top-right' });
                     })
                     .catch((error) => {
                         loader.hide();

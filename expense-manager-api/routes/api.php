@@ -27,7 +27,12 @@ Route::get('/categories', [CategoryController::class, 'index']);
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user', function(Request $request) {
-        return auth()->user();
+        $response = [
+            'user' => auth()->user(),
+            'roles' => auth()->user()->roles
+        ];
+
+        return response($response, 201);
     });
     // Expenses routes to controller
     Route::get('/expenses', [ExpenseController::class, 'index']);

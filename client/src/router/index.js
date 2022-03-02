@@ -22,17 +22,20 @@ const routes = [
             {
                 path: 'role',
                 name: 'User Management > Roles',
-                component: () => import('../views/Role.vue')
+                component: () => import('../views/Role.vue'),
+                meta: { admin: true }
             },
             {
                 path: 'users',
                 name: 'User Management > Users',
-                component: () => import('../views/Users.vue')
+                component: () => import('../views/Users.vue'),
+                meta: { admin: true }
             },
             {
                 path: 'categories',
                 name: 'Expense Management > Expense Categories',
-                component: () => import('../views/Categories.vue')
+                component: () => import('../views/Categories.vue'),
+                meta: { admin: true }
             },
             {
                 path: 'expenses',
@@ -62,6 +65,18 @@ router.beforeEach((to, from, next) => {
             return;
         }
         next('/login');
+    } else {
+        next();
+    }
+});
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some((record) => record.meta.admin)) {
+        if (store.getters.userRoles.some((e) => e.name === 'admin') && store.getters.isAuthenticated) {
+            next();
+            return;
+        }
+        next('/dashboard');
     } else {
         next();
     }

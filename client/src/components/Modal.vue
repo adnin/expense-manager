@@ -1,22 +1,3 @@
-<script>
-export default {
-    name: 'Modal',
-    props: {
-        title: { type: String, required: true },
-        data: { type: Array, required: true },
-        type: { type: String, required: true }
-    },
-    methods: {
-        close() {
-            this.$emit('close');
-        },
-        update() {
-            this.$emit('update', this.data);
-        }
-    }
-};
-</script>
-
 <template>
     <transition name="modal-fade">
         <div class="modal-backdrop">
@@ -32,6 +13,7 @@ export default {
 
                 <section class="modal-body" id="modalDescription">
                     <form class="w-full">
+                        <p class="text-red-600 mb-4" v-if="error">{{ error }}</p>
                         <div class="mb-4" v-for="d in data" :key="d.id">
                             <label class="block text-gray-700 text-sm mb-2" :for="d.name">{{ d.label }}</label>
                             <input
@@ -49,6 +31,7 @@ export default {
                 <footer class="modal-footer">
                     <div v-if="type === 'update'" class="flex items-center justify-between">
                         <button
+                            @click="remove"
                             class="text-red-500 mx-3 border-gray-300 font-bold py-1 shadow-md px-2 rounded focus:outline-none focus:shadow-outline"
                             type="button"
                         >
@@ -80,6 +63,7 @@ export default {
                             Cancel
                         </button>
                         <button
+                            @click="add"
                             class="text-green-500 border-gray-300 font-bold py-1 shadow-md px-2 rounded focus:outline-none focus:shadow-outline"
                             type="button"
                         >
@@ -91,6 +75,31 @@ export default {
         </div>
     </transition>
 </template>
+<script>
+export default {
+    name: 'Modal',
+    props: {
+        title: { type: String, required: true },
+        data: { type: Array, required: true },
+        type: { type: String, required: true },
+        error: { type: String, required: false }
+    },
+    methods: {
+        close() {
+            this.$emit('close');
+        },
+        update() {
+            this.$emit('update', this.data);
+        },
+        add() {
+            this.$emit('add', this.data);
+        },
+        remove() {
+            this.$emit('remove', this.data);
+        }
+    }
+};
+</script>
 
 <style>
 .modal-backdrop {

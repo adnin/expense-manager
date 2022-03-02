@@ -56,9 +56,7 @@ const ApiService = {
     },
 
     delete(resource) {
-        return axiosClient.delete(resource).catch((error) => {
-            throw new Error(`[RWV] ApiService ${error}`);
-        });
+        return axiosClient.delete(resource);
     }
 };
 

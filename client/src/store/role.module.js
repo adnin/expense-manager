@@ -16,21 +16,46 @@ export const actions = {
         return data;
     },
     async [ROLE_CREATE](context, payload) {
-        await RolesService.post(payload)
-            .then((e) => {
-                context.dispatch(FETCH_ROLES);
-                console.log({ e });
-            })
-            .catch((e) => console.log({ e }));
+        return new Promise((resolve, reject) => {
+            RolesService.post(payload)
+                .then((e) => {
+                    context.dispatch(FETCH_ROLES);
+                    resolve(e);
+                })
+                .catch((e) => {
+                    // if (!response.data.errors) {
+                    //     context.commit(SET_ERROR, [response.data.message]);
+                    //     return reject(response);
+                    // }
+                    return reject(e.response.data.message);
+                    context.commit(SET_ERROR, e.response.data.message);
+                });
+        });
     },
-    async [ROLE_DESTROY](context, payload) {
-        await RolesService.destroy(payload);
-        context.dispatch(FETCH_ROLES);
+    async [ROLE_DESTROY](context, id) {
+        return new Promise((resolve, reject) => {
+            RolesService.destroy(id)
+                .then((e) => {
+                    context.dispatch(FETCH_ROLES);
+                    resolve(e);
+                })
+                .catch((e) => {
+                    // if (!response.data.errors) {
+                    //     context.commit(SET_ERROR, [response.data.message]);
+                    //     return reject(response);
+                    // }
+                    return reject(e.response.data.message);
+                    context.commit(SET_ERROR, e.response.data.message);
+                });
+        });
     },
     async [ROLE_UPDATE](context, payload) {
         return new Promise((resolve, reject) => {
             RolesService.update(payload)
-                .then(() => context.dispatch(FETCH_ROLES))
+                .then((e) => {
+                    context.dispatch(FETCH_ROLES);
+                    resolve(e);
+                })
                 .catch((e) => {
                     // if (!response.data.errors) {
                     //     context.commit(SET_ERROR, [response.data.message]);

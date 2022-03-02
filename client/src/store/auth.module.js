@@ -6,6 +6,7 @@ import { SET_AUTH, PURGE_AUTH, SET_ERROR } from './mutations.type';
 const state = {
     errors: null,
     user: {},
+    roles: null,
     isAuthenticated: !!JwtService.getToken()
 };
 
@@ -15,6 +16,9 @@ const getters = {
     },
     isAuthenticated(state) {
         return state.isAuthenticated;
+    },
+    userRoles(state) {
+        return state.roles;
     }
 };
 
@@ -65,6 +69,9 @@ const mutations = {
         state.isAuthenticated = true;
         state.user = user;
         state.errors = {};
+        if (user.roles) {
+            state.roles = user.roles;
+        }
         if (state.user.token) {
             JwtService.saveToken(state.user.token);
         }
@@ -73,6 +80,7 @@ const mutations = {
         state.isAuthenticated = false;
         state.user = {};
         state.errors = {};
+        state.roles = {};
         JwtService.destroyToken();
     }
 };
