@@ -10,26 +10,24 @@
                 <ul class="list-outside mt-5">
                     <li>
                         <router-link
-                            class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700"
+                            class="block py-1 px-3 rounded transition duration-200 text-white border-green-600 hover:border-white border-b"
                             to="home/dashboard"
                             >Dashboard</router-link
                         >
                     </li>
                     <li>
-                        <a href="#" class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700">
-                            User Management
-                        </a>
+                        <a href="#" class="block py-1 px-3 rounded transition duration-200 text-white"> User Management </a>
                         <ul class="ml-4 list-outside">
                             <li>
                                 <router-link
-                                    class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700"
+                                    class="block py-1 px-3 rounded transition duration-200 text-white border-green-600 hover:border-white border-b"
                                     to="home/role"
                                     >Role</router-link
                                 >
                             </li>
                             <li>
                                 <router-link
-                                    class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700"
+                                    class="block py-1 px-3 rounded transition duration-200 text-white border-green-600 hover:border-white border-b"
                                     to="home/users"
                                     >Users</router-link
                                 >
@@ -37,20 +35,18 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#" class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700">
-                            Expense Management
-                        </a>
+                        <a href="#" class="block py-1 px-3 rounded transition duration-200 text-white 0"> Expense Management </a>
                         <ul class="ml-4 list-outside">
                             <li>
                                 <router-link
-                                    class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700"
+                                    class="block py-1 px-3 rounded transition duration-200 text-white border-green-600 hover:border-white border-b"
                                     to="home/categories"
                                     >Expense Categories</router-link
                                 >
                             </li>
                             <li>
                                 <router-link
-                                    class="block py-1 px-3 rounded transition duration-200 text-white hover:text-gray-700"
+                                    class="block py-1 px-3 rounded transition duration-200 text-white border-green-600 hover:border-white border-b"
                                     to="home/expenses"
                                     >Expense</router-link
                                 >

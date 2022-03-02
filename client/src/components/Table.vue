@@ -13,8 +13,13 @@
             </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
-            <tr v-for="d in data" :key="d.name">
-                <td v-for="value in d" :key="value" class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 cursor-pointer">
+            <tr v-for="d in data" :key="d.id" @click="selected(d)">
+                <td
+                    v-for="(value, key) in d"
+                    :key="value"
+                    v-show="key !== 'id'"
+                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 cursor-pointer"
+                >
                     {{ value }}
                 </td>
             </tr>
@@ -28,6 +33,11 @@ export default {
     props: {
         tHead: { type: Array, required: true },
         data: { type: Array, required: true }
+    },
+    methods: {
+        selected(value) {
+            this.$emit('selected', value);
+        }
     }
 };
 </script>
