@@ -19,6 +19,9 @@ const getters = {
         return state.isAuthenticated;
     },
     userRoles(state) {
+        if (!state.roles) {
+            return null;
+        }
         return JSON.parse(state.roles);
     }
 };
@@ -81,7 +84,6 @@ const mutations = {
         state.isAuthenticated = false;
         state.user = {};
         state.errors = {};
-        state.roles = {};
         JwtService.destroyToken();
         RolesService.destroyRoles();
     }

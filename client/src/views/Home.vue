@@ -6,14 +6,16 @@
             <div class="bg-green-600 w-48">
                 <!-- Sidebar content -->
                 <div class="w-10 h-10 rounded-full bg-gray-400 m-3"></div>
-                <span class="py-2 px-3 text-white">Adnin Onofre (admin)</span>
+                <span class="py-2 px-3 text-white"
+                    >{{ currentUser.user?.name }} ({{ currentUser.roles ? currentUser.roles[0].name : '' }})</span
+                >
                 <ul class="list-outside mt-5">
                     <li>
                         <router-link class="block py-1 px-3 rounded transition duration-200 text-white" to="home/dashboard"
                             >Dashboard</router-link
                         >
                     </li>
-                    <li>
+                    <li v-show="isAdmin">
                         <span class="block cursor-pointer py-1 px-3 rounded transition duration-200 text-gray-300"> User Management </span>
                         <ul class="ml-4 list-outside">
                             <li>
@@ -33,7 +35,7 @@
                             Expense Management
                         </span>
                         <ul class="ml-4 list-outside">
-                            <li>
+                            <li v-show="isAdmin">
                                 <router-link class="block py-1 px-3 rounded transition duration-200 text-white" to="home/categories"
                                     >Expense Categories</router-link
                                 >
@@ -60,6 +62,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { CHECK_AUTH, LOGOUT } from '@/store/actions.type';
 
 import Nav from '@/components/Nav';
@@ -81,11 +84,15 @@ export default {
             });
     },
     computed: {
+        ...mapGetters(['currentUser']),
         name() {
             return this.$route.name;
         },
         path() {
             return this.$route.path;
+        },
+        isAdmin() {
+            return this.$store.getters.userRoles?.some((e) => e.name === 'admin');
         }
     }
 };

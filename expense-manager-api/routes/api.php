@@ -25,6 +25,7 @@ use App\Http\Controllers\DashboardController;
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/categories', [CategoryController::class, 'index']);
 
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -58,7 +59,6 @@ Route::group(['middleware' => ['role:admin', 'auth:sanctum']], function () {
     Route::delete('/roles/{id}', [RoleController::class, 'destroy']);
 
     // Category routes to controller
-    Route::get('/categories', [CategoryController::class, 'index']);
     Route::post('/categories', [CategoryController::class, 'store']);
     Route::put('/categories/{id}', [CategoryController::class, 'update']);
     Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
