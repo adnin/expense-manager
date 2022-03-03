@@ -1,4 +1,4 @@
-import { RolesService, JwtService, ApiService } from '../common/api.service';
+import { RolesService } from '../common/api.service';
 import { FETCH_ROLES, ROLE_CREATE, ROLE_UPDATE, ROLE_DESTROY } from './actions.type';
 import { RESET_STATE, SET_ROLES, SET_ERROR } from './mutations.type';
 

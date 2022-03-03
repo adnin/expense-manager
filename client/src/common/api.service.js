@@ -133,3 +133,9 @@ export const CategoriesService = {
         return ApiService.delete(`categories/${id}`);
     }
 };
+
+export const DashboardService = {
+    get() {
+        return ApiService.get('dashboard');
+    }
+};

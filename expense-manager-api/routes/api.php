@@ -7,6 +7,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,8 @@ use App\Http\Controllers\UserController;
 // Public routes
 // for testing only Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/categories', [CategoryController::class, 'index']);
+Route::post('/logout', [AuthController::class, 'logout']);
+Route::get('/dashboard', [DashboardController::class, 'index']);
 
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -56,8 +58,8 @@ Route::group(['middleware' => ['role:admin', 'auth:sanctum']], function () {
     Route::delete('/roles/{id}', [RoleController::class, 'destroy']);
 
     // Category routes to controller
+    Route::get('/categories', [CategoryController::class, 'index']);
     Route::post('/categories', [CategoryController::class, 'store']);
     Route::put('/categories/{id}', [CategoryController::class, 'update']);
     Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
-
 });

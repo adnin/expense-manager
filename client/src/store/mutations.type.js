@@ -7,3 +7,4 @@ export const SET_ROLES = 'setRoles';
 export const SET_USERS = 'setUsers';
 export const SET_CATEGORIES = 'setCategories';
 export const SET_EXPENSES = 'setExpenses';
+export const SET_DASHBOARD = 'setDashboard';

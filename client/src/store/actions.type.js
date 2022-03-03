@@ -15,5 +15,6 @@ export const FETCH_EXPENSES = 'fetchExpenses';
 export const FETCH_CATEGORIES = 'fetchCategories';
 export const FETCH_ROLES = 'fetchRoles';
 export const FETCH_USERS = 'fetchUsers';
+export const FETCH_DASHBOARD = 'fetchDashboard';
 export const LOGIN = 'login';
 export const LOGOUT = 'logout';

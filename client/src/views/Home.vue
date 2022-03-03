@@ -50,7 +50,7 @@
             <!-- Scroll wrapper -->
             <div class="flex-1 flex overflow-hidden">
                 <!-- Scrollable container -->
-                <div class="flex-1 overflow-x-scroll">
+                <div class="flex-1">
                     <TitleBar :path="path" :name="name" />
                     <router-view></router-view>
                 </div>

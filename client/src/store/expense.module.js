@@ -1,4 +1,4 @@
-import { ExpensesService, JwtService, ApiService } from '../common/api.service';
+import { ExpensesService } from '../common/api.service';
 import { FETCH_EXPENSES, EXPENSE_CREATE, EXPENSE_UPDATE, EXPENSE_DESTROY } from './actions.type';
 import { RESET_STATE, SET_EXPENSES, SET_ERROR } from './mutations.type';
 

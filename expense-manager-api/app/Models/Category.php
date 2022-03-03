@@ -19,7 +19,7 @@ class Category extends Model
         return $this->hasMany(Expense::class, 'category_id', 'id');
     }
 
-    protected $visible = ['id', 'name', 'description', 'created_at'];
+    protected $visible = ['id', 'name', 'description', 'created_at', 'expenses'];
 
     public function getCreatedAtAttribute($date)
     {

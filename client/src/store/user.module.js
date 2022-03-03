@@ -1,4 +1,4 @@
-import { UsersService, JwtService, ApiService } from '../common/api.service';
+import { UsersService } from '../common/api.service';
 import { FETCH_USERS, USER_CREATE, USER_UPDATE, USER_DESTROY } from './actions.type';
 import { RESET_STATE, SET_USERS, SET_ERROR } from './mutations.type';
 

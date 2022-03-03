@@ -1,4 +1,4 @@
-import { CategoriesService, JwtService, ApiService } from '../common/api.service';
+import { CategoriesService } from '../common/api.service';
 import { FETCH_CATEGORIES, CATEGORY_CREATE, CATEGORY_UPDATE, CATEGORY_DESTROY } from './actions.type';
 import { RESET_STATE, SET_CATEGORIES, SET_ERROR } from './mutations.type';
 

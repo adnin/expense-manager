@@ -15,7 +15,6 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $categories->load('expenses');
         $response = [
             'categories' => $categories
         ];

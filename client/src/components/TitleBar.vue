@@ -1,6 +1,6 @@
 <template>
     <nav class="container flex justify-between px-8 py-8 mx-auto">
-        <h2 class="text-xl">{{ title }}</h2>
+        <h2 class="text-xl">{{ title === 'Dashboard' ? 'My Expense' : title }}</h2>
         <span class="text-gray-700">{{ name }}</span>
     </nav>
 </template>
