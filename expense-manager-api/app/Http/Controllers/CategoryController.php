@@ -15,7 +15,6 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $categories->load('expenses');
         $response = [
             'categories' => $categories
         ];
@@ -32,7 +31,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required | unique:categories',
             'description' => 'required'
         ]);
 

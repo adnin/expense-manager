@@ -49,10 +49,9 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         if ($role->name === 'admin') {
-            return response()->json([
-                'responseMessage' => 'You do not have the required authorization.',
-                'responseStatus'  => 403,
-            ]);
+            return response([
+                'message' => 'You do not have the required authorization.'
+            ], 403);
         }
         $role->update($request->all());
         return $role;
@@ -68,10 +67,9 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         if ($role->name === 'admin') {
-            return response()->json([
-                'responseMessage' => 'You do not have the required authorization.',
-                'responseStatus'  => 403,
-            ]);
+            return response([
+                'message' => 'You do not have the required authorization.'
+            ], 403);
         }
 
         return Role::destroy($id);
