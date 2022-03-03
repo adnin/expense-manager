@@ -28,7 +28,7 @@ yarn test:unit
 ```sh
 cd expense-manager-api
 composer install
-update .env
+create .env
 php artisan migrate
 php artisan db:seed
 php artisan serve
@@ -37,7 +37,7 @@ php artisan serve
 ### Test Account
 
 ```sh
-email: adninonofre
+email: adninonofre@gmail.com
 password: password
 ```
 
