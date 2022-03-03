@@ -33,8 +33,8 @@ class ExpenseController extends Controller
     {
         $request->validate([
             'amount' => 'required | numeric',
-            'entry_date' => 'required',
-            'category_id' => 'required',
+            'entry_date' => 'required | date',
+            'category_id' => 'required | numeric',
         ]);
 
         return Expense::create($request->all());
@@ -50,6 +50,11 @@ class ExpenseController extends Controller
     public function update(Request $request, $id)
     {
         $expense = Expense::find($id);
+        $request->validate([
+            'amount' => 'required | numeric',
+            'entry_date' => 'required | date',
+            'category_id' => 'required | numeric',
+        ]);
         $expense->update($request->all());
         return $expense;
     }
