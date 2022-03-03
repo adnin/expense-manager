@@ -15,7 +15,7 @@
                             >Dashboard</router-link
                         >
                     </li>
-                    <li v-if="isAdmin">
+                    <li v-show="isAdmin">
                         <span class="block cursor-pointer py-1 px-3 rounded transition duration-200 text-gray-300"> User Management </span>
                         <ul class="ml-4 list-outside">
                             <li>
@@ -35,7 +35,7 @@
                             Expense Management
                         </span>
                         <ul class="ml-4 list-outside">
-                            <li v-if="isAdmin">
+                            <li v-show="isAdmin">
                                 <router-link class="block py-1 px-3 rounded transition duration-200 text-white" to="home/categories"
                                     >Expense Categories</router-link
                                 >
@@ -92,7 +92,7 @@ export default {
             return this.$route.path;
         },
         isAdmin() {
-            return this.$store.getters.userRoles.some((e) => e.name === 'admin');
+            return this.$store.getters.userRoles?.some((e) => e.name === 'admin');
         }
     }
 };
