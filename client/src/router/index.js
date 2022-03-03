@@ -20,9 +20,9 @@ const routes = [
                 component: () => import('../views/Dashboard.vue')
             },
             {
-                path: 'role',
+                path: 'roles',
                 name: 'User Management > Roles',
-                component: () => import('../views/Role.vue'),
+                component: () => import('../views/Roles.vue'),
                 meta: { admin: true }
             },
             {

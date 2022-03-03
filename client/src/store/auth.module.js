@@ -1,12 +1,13 @@
 import ApiService from '../common/api.service';
 import JwtService from '../common/jwt.service';
+import RolesService from '../common/roles.service';
 import { LOGIN, LOGOUT, CHECK_AUTH } from './actions.type';
 import { SET_AUTH, PURGE_AUTH, SET_ERROR } from './mutations.type';
 
 const state = {
     errors: null,
     user: {},
-    roles: null,
+    roles: RolesService.getRoles(),
     isAuthenticated: !!JwtService.getToken()
 };
 
@@ -18,7 +19,7 @@ const getters = {
         return state.isAuthenticated;
     },
     userRoles(state) {
-        return state.roles;
+        return JSON.parse(state.roles);
     }
 };
 
@@ -70,7 +71,7 @@ const mutations = {
         state.user = user;
         state.errors = {};
         if (user.roles) {
-            state.roles = user.roles;
+            RolesService.saveRoles(user.roles);
         }
         if (state.user.token) {
             JwtService.saveToken(state.user.token);
@@ -82,6 +83,7 @@ const mutations = {
         state.errors = {};
         state.roles = {};
         JwtService.destroyToken();
+        RolesService.destroyRoles();
     }
 };
 

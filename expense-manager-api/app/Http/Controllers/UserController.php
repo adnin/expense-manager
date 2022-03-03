@@ -31,13 +31,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
-            'password' => 'required|string|confirmed'
+            'role' => 'required|string'
         ]);
-
-        return User::create($request->all());
+        $user = User::create([
+            'name' => $fields['name'],
+            'email' => $fields['email'],
+            'password' => bcrypt('password')
+        ]);
+        $user->assignRole($fields['role']);
+        return $user;
     }
 
     /**
@@ -50,9 +55,23 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        $user->getRoleNames();
-        return $user;
-        $user->update($request->all());
+
+        $fields = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string',
+            'role' => 'required|string'
+        ]);
+
+        if($user->roles->first() !== $fields['role']) {
+            $user->removeRole($user->roles->first());
+        }
+
+        $user->update([
+            'name' => $fields['name'],
+            'email' => $fields['email']
+        ]);
+
+        $user->assignRole($fields['role']);
         return $user;
     }
 
@@ -65,8 +84,11 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        $user->getRoleNames();
-        return $user;
+        if ($user->roles->first() === 'admin') {
+            return response([
+                'message' => 'You do not have the required authorization.'
+            ], 403);
+        }
         return User::destroy($id);
     }
 }

@@ -17,12 +17,22 @@
                         <div class="mb-4" v-for="d in data" :key="d.id">
                             <label class="block text-gray-700 text-sm mb-2" :for="d.name">{{ d.label }}</label>
                             <input
+                                v-if="d.type === 'text'"
                                 :type="d.type"
                                 :id="d.name"
                                 :value="d.value"
                                 @input="(event) => (d.value = event.target.value)"
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                             />
+
+                            <select
+                                class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                v-if="d.type === 'select'"
+                                v-model="d.value"
+                                @change="(event) => (d.value = event.target.value)"
+                            >
+                                <option v-for="dropdown in ddData" :value="dropdown.name" :key="dropdown.id">{{ dropdown.name }}</option>
+                            </select>
                             <!-- <p class="text-red-500 text-xs italic">Please choose a password.</p> -->
                         </div>
                     </form>
@@ -81,6 +91,7 @@ export default {
     props: {
         title: { type: String, required: true },
         data: { type: Array, required: true },
+        ddData: { type: Array, required: false },
         type: { type: String, required: true },
         error: { type: String, required: false }
     },

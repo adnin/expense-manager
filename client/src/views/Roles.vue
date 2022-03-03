@@ -45,7 +45,7 @@ const data = [
     { id: 2, name: 'description', label: 'Description', type: 'text', value: '' }
 ];
 export default {
-    name: 'Role',
+    name: 'Roles',
     setup() {
         return {
             tHead,
@@ -95,7 +95,6 @@ export default {
             this.isModalVisible = true;
         },
         add(value) {
-            console.log(value);
             if (!this.data[0].value || !this.data[1].value) {
                 return (this.error = 'Please fill out the form completely');
             }

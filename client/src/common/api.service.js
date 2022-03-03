@@ -79,3 +79,57 @@ export const RolesService = {
         return ApiService.delete(`roles/${id}`);
     }
 };
+
+export const UsersService = {
+    get() {
+        return ApiService.get('users');
+    },
+
+    post(payload) {
+        return ApiService.post(`users`, payload);
+    },
+
+    update(payload) {
+        return ApiService.update(`users/${payload.id}`, payload);
+    },
+
+    destroy(id) {
+        return ApiService.delete(`users/${id}`);
+    }
+};
+
+export const ExpensesService = {
+    get() {
+        return ApiService.get('expenses');
+    },
+
+    post(payload) {
+        return ApiService.post(`expenses`, payload);
+    },
+
+    update(payload) {
+        return ApiService.update(`expenses/${payload.id}`, payload);
+    },
+
+    destroy(id) {
+        return ApiService.delete(`expenses/${id}`);
+    }
+};
+
+export const CategoriesService = {
+    get() {
+        return ApiService.get('categories');
+    },
+
+    post(payload) {
+        return ApiService.post(`categories`, payload);
+    },
+
+    update(payload) {
+        return ApiService.update(`categories/${payload.id}`, payload);
+    },
+
+    destroy(id) {
+        return ApiService.delete(`categories/${id}`);
+    }
+};
