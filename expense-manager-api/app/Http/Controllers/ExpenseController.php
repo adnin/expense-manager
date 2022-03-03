@@ -15,6 +15,7 @@ class ExpenseController extends Controller
     public function index()
     {
         $expenses = Expense::all();
+        $expenses->load('category');
         $response = [
             'expenses' => $expenses
         ];
@@ -31,7 +32,7 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'amount' => 'required',
+            'amount' => 'required | numeric',
             'entry_date' => 'required',
             'category_id' => 'required',
         ]);

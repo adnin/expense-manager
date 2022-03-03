@@ -23,10 +23,6 @@ export const actions = {
                     resolve(e);
                 })
                 .catch((e) => {
-                    // if (!response.data.errors) {
-                    //     context.commit(SET_ERROR, [response.data.message]);
-                    //     return reject(response);
-                    // }
                     return reject(e.response.data.message);
                     context.commit(SET_ERROR, e.response.data.message);
                 });

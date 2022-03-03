@@ -5,3 +5,5 @@ export const SET_ERROR = 'setError';
 export const RESET_STATE = 'resetModuleState';
 export const SET_ROLES = 'setRoles';
 export const SET_USERS = 'setUsers';
+export const SET_CATEGORIES = 'setCategories';
+export const SET_EXPENSES = 'setExpenses';

@@ -17,7 +17,7 @@
                         <div class="mb-4" v-for="d in data" :key="d.id">
                             <label class="block text-gray-700 text-sm mb-2" :for="d.name">{{ d.label }}</label>
                             <input
-                                v-if="d.type === 'text'"
+                                v-if="d.type !== 'select'"
                                 :type="d.type"
                                 :id="d.name"
                                 :value="d.value"
